@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>对象数组深复制</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function deepCopy(obj){
+			if(obj.constructor!=Array && obj.constructor!=Object) return false;
+			var newObj=obj.constructor==Array?[]:{};
+			for(var i in obj) newObj[i]=(obj[i].constructor==Array || obj[i].constructor==Object)?deepCopy(obj[i]):obj[i];
+			return newObj;
+		}
+		// JSON.stringify(JSON.parse(obj)); 另一种方法
+	</script>
+</body>
+</html>
