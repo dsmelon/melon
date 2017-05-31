@@ -161,7 +161,7 @@
 		 document.addEventListener("touchmove", function(e) {
 			e.preventDefault();
 		 }, false)
-		slide.on("swipe", function (e){
+		slide.on("swipe", function (e) {
 			start.style.display="none";
 			var x=e.deltaX,y=e.deltaY;
 			var direction=Math.abs(x)>Math.abs(y)?(x>0?39:37):(y>0?40:38);
@@ -247,7 +247,7 @@
 					clearInterval(up);
 					clearInterval(down);
 					document.onkeydown=null;
-					slide.remove("swipe");
+					
 					end.style.display="block";
 				}
 			for(var i=4;i<snake.length;i++){
@@ -257,7 +257,7 @@
 					clearInterval(up);
 					clearInterval(down);
 					document.onkeydown=null;
-					slide.remove("swipe");
+					slide=0;
 					end.style.display="block";
 				}
 			}
