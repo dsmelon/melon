@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid deeppink;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="400"></canvas>
+    <script type="text/javascript">
+        var canvas=document.getElementById("canvas");
+        var ctx=canvas.getContext("2d");
+        var n=0,timer=0;
+        var particles=[];
+        
+        ctx.font="200px 楷体";
+        ctx.textAlign="center";
+        ctx.textBaseline="middle";
+        ctx.fillStyle="blue";
+        ctx.fillText("钟伟强",400,200);
+        
+        var Particle=function(x,y){
+        	this.x=x;
+        	this.y=y;
+//      	this.r=2;
+//      	this.color="blue";
+        }
+        var VP=function(){
+        	this.x=parseInt(Math.random()*799+1);
+        	this.y=parseInt(Math.random()*399+1);
+        	this.r=2;
+        	this.color="blue";
+        }
+        
+//      Particle.prototype={
+//      	draw: function(){
+//      		ctx.beginPath();
+//      		ctx.arc(this.x,this.y,this.r,0,Math.PI*2,false);
+//      		ctx.closePath();
+//      		ctx.fillStyle=this.color;
+//      		ctx.fill();
+//      	}
+//      }
+        
+        VP.prototype={
+        	draw: function(){
+        		ctx.beginPath();
+        		ctx.arc(this.x,this.y,this.r,0,Math.PI*2,false);
+        		ctx.closePath();
+        		ctx.fillStyle=this.color;
+        		ctx.fill();
+        	}
+        }
+        
+        var pixel=ctx.getImageData(0,0,800,400);
+        ctx.clearRect(0,0,800,400);
+        for(var x=0;x<800;x+=4){
+        	for(var y=0;y<400;y+=4){
+        		n=y*800+x;
+        		if(pixel.data[n*4+2]>100){
+        			particles.push(new Particle(x,y));
+        		}
+        	}
+        }
+		
+		var vice=[];
+		
+        for(var i in particles){
+			vice.push(new VP());
+        }
+        
+        (function move(){
+        	ctx.clearRect(0,0,800,400);
+        	for(var i in vice){
+        		vice[i].draw();
+        		vice[i].x-=(vice[i].x-particles[i].x)/500;
+        		vice[i].y-=(vice[i].y-particles[i].y)/500;
+        		// if(vice[i].x-particles[i].x<=0 && vice[i].y-particles[i].y<=0) vice[i]=new VP();
+        	}
+			// count++;
+        	requestAnimationFrame(move);
+        }())
+        
+    </script>
+</body>
+</html>

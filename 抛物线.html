@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		span {
+			display: block;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			background-color: purple;
+			position: absolute;
+			left: 100px;
+			top: 100px;
+			transition: left 0.5s linear,top 0.5s cubic-bezier(0.43,-0.5, 0.96, 0.67);
+		}
+		span:active {
+			left: 800px;
+			top: 800px;
+		}
+	</style>
+</head>
+<body>
+	<span></span>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>放大镜</title>
+	<style type="text/css">
+		* {
+			margin:0;
+			padding: 0;
+		}
+		#minBox,#maxBox {
+			border:4px solid #ddd;
+			margin-left: 20px;
+			margin-top: 30px;
+		}
+		#minBox {
+			position: relative;
+			width:350px;
+			height: 350px;
+		}
+		#slider {
+			display: none;
+			position: absolute;
+			left:0;
+			top:0;
+			width:150px;
+			height: 150px;
+			background-color: hsla(150,100%,50%,0.6);
+		}
+		#maxBox {
+			/*display: none;*/
+			position: absolute;
+			left:380px;
+			top:0;
+			width: 500px;
+			height: 500px;
+			overflow: hidden;
+		}
+		#maxBox img {
+			position: absolute;
+			width: 1167px;
+			height: 1167px;
+		}
+	</style>
+</head>
+<body>
+	<div id="minBox">
+		<img src="img/min.jpg">
+		<div id="slider"></div>
+	</div>
+	<div id="maxBox">
+		<img src="img/max.jpg">
+	</div>
+	<script type="text/javascript">
+		var pos=minBox.getBoundingClientRect();
+		minBox.onmouseenter=function(){
+			slider.style.display="block";
+			maxBox.style.display="block";
+		}
+		minBox.onmousemove=function(e){
+			var bLeft=e.clientX-pos.left-slider.offsetWidth/2;
+			var bTop=e.clientY-pos.top-slider.offsetHeight/2;
+			if(bLeft>minBox.clientWidth-slider.offsetWidth) bLeft=minBox.clientWidth-slider.offsetWidth;
+			if(bTop>minBox.clientHeight-slider.offsetHeight) bTop=minBox.clientHeight-slider.offsetHeight;
+			if(bLeft<0) bLeft=0;
+			if(bTop<0) bTop=0;
+			slider.style.left=bLeft+"px";
+			slider.style.top=bTop+"px";
+			var img=document.querySelector("#maxBox img");
+			img.style.left=-bLeft*10/3+"px";
+			img.style.top=-bTop*10/3+"px";
+		}
+		minBox.onmouseleave=function(){
+			slider.style.display="none";
+			maxBox.style.display="none";
+		}
+	</script>
+</body>
+</html>
